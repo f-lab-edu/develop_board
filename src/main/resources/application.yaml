@@ -1,3 +1,11 @@
 spring:
   application:
     name: develop_board
+  datasource:
+    url: jdbc:mysql://localhost:3307/board?serverTimezone=UTC
+    username: root
+    password: ${MYSQL_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
