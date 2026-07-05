@@ -2,7 +2,7 @@ spring:
   application:
     name: develop_board
   datasource:
-    url: jdbc:mysql://localhost:3307/board?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3307/board?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
     password: ${MYSQL_PASSWORD}
   jpa:

@@ -1,8 +1,8 @@
-package com._ilkwon.develop_board.board.entity
+package com._ilkwon.develop_board.board.repository
 
+import com._ilkwon.develop_board.board.entity.Board
+import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
-import org.springframework.data.jpa.repository.JpaRepository;
-
 
 @Repository
 public interface BoardRepository : JpaRepository<Board, Long> {
