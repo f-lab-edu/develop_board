@@ -3,6 +3,7 @@ package com._ilkwon.develop_board.board.service
 import com._ilkwon.develop_board.board.dto.BoardCreateRequest
 import com._ilkwon.develop_board.board.dto.BoardDetailResponse
 import com._ilkwon.develop_board.board.dto.BoardListResponse
+import com._ilkwon.develop_board.board.dto.BoardUpdateRequest
 import com._ilkwon.develop_board.board.entity.Board
 import com._ilkwon.develop_board.board.repository.BoardRepository
 import org.springframework.data.domain.PageRequest
@@ -69,6 +70,16 @@ class BoardService(private val boardRepository: BoardRepository) {
                 tag = board.tag
             )
         }
+    }
+
+    @Transactional
+    fun updateBoard(request : BoardUpdateRequest) {
+
+        val board = boardRepository.findByUuid(request.uuid)
+
+        board?.title = request.title
+        board?.content = request.content
+
     }
 
 }
