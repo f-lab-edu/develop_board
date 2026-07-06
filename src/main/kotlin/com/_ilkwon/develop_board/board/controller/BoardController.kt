@@ -6,6 +6,7 @@ import com._ilkwon.develop_board.board.dto.BoardListResponse
 import com._ilkwon.develop_board.board.dto.BoardUpdateRequest
 import com._ilkwon.develop_board.board.entity.Board
 import com._ilkwon.develop_board.board.service.BoardService
+import com.oracle.svm.core.annotate.Delete
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.UUID
@@ -45,5 +46,11 @@ class BoardController (private val boardService: BoardService) {
     ): String {
         boardService.updateBoard(request)
         return "board update success 입니다"
+    }
+
+    @DeleteMapping("/{uuid}")
+    fun deleteBoard(@PathVariable uuid: String): String {
+        boardService.deleteBoard(uuid)
+        return "board delete success 입니다"
     }
 }

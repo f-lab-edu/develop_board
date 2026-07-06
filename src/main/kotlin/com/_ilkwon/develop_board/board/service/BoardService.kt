@@ -82,4 +82,11 @@ class BoardService(private val boardRepository: BoardRepository) {
 
     }
 
+    @Transactional
+    fun deleteBoard(uuid: String) {
+        val board = boardRepository.findByUuid(uuid)
+
+        boardRepository.delete(board!!)
+    }
+
 }
