@@ -2,6 +2,8 @@ package com._ilkwon.develop_board.board.repository
 
 import com._ilkwon.develop_board.board.entity.Board
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Modifying
+import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -10,4 +12,8 @@ public interface BoardRepository : JpaRepository<Board, Long> {
     fun findAllByOrderByCreatedAtDesc(): List<Board> //최신순
     fun findAllByOrderByCreatedAtAsc(): List<Board> //오래된 순
     fun findAllByOrderByViewsDesc(): List<Board> // 조회수 많은 순
+
+    @Modifying
+    @Query("UPDATE Board SET views = views + 1 WHERE uuid = :uuid")
+    fun increaseViews(uuid: String)
 }
