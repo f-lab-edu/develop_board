@@ -2,6 +2,7 @@ package com._ilkwon.develop_board.board.controller
 
 import com._ilkwon.develop_board.board.dto.BoardCreateRequest
 import com._ilkwon.develop_board.board.dto.BoardDetailResponse
+import com._ilkwon.develop_board.board.dto.BoardListResponse
 import com._ilkwon.develop_board.board.entity.Board
 import com._ilkwon.develop_board.board.service.BoardService
 import org.springframework.http.ResponseEntity
@@ -24,6 +25,15 @@ class BoardController (private val boardService: BoardService) {
     @GetMapping("/{uuid}")
     fun getBoardDetail(@PathVariable uuid: String): BoardDetailResponse{
         return boardService.getBoardDetail(uuid)
+    }
+
+    @GetMapping
+    fun getBoardList(
+        @RequestParam(defaultValue = "1") page: Int,
+        @RequestParam(defaultValue = "30") size: Int,
+        @RequestParam(defaultValue = "latest") sort: String
+    ): List<BoardListResponse> {
+        return boardService.getBoardList(page, size, sort)
     }
 
 
