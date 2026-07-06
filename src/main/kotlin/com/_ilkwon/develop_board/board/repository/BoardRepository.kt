@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 public interface BoardRepository : JpaRepository<Board, Long> {
-    fun findByUuid(uuid: String): Board?  // 상세 조회
+    fun findByUuid(uuid: String): Board?
     fun findAllByOrderByCreatedAtDesc(pageable: Pageable): Page<Board>
     fun findAllByOrderByCreatedAtAsc(pageable: Pageable): Page<Board>
     fun findAllByOrderByViewsDesc(pageable: Pageable): Page<Board>
