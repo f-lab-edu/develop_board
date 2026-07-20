@@ -1,8 +1,6 @@
-package com._ilkwon.develop_board.board.dto
+package com.ilkwon.spring.board.dto
 
 data class BoardCreateRequest (
     val title : String,
     val content : String
-){
-
-}
+)
