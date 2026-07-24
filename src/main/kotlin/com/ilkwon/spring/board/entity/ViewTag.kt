@@ -1,4 +1,4 @@
-package com._ilkwon.develop_board.board.entity
+package com.ilkwon.spring.board.entity
 
 enum class ViewTag {
     POPULAR,
