@@ -1,0 +1,7 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>게시글 수정 · Develop Board</title><link rel="stylesheet" href="/css/board.css"></head>
+<body data-board-uuid="${boardUuid}">
+<header class="site-header"><div class="container header-inner"><a class="brand" href="/posts"><span class="brand-mark">D</span><span class="brand-text">Develop Board</span></a><label class="writer-label">작성자 ID <input id="writerId" type="number" min="1" value="1"></label></div></header>
+<main class="container page-space"><section class="panel narrow"><div class="form-head"><span class="eyebrow" style="color:#5b5cf0">Edit Post</span><h1>게시글 수정</h1><p class="muted">내용을 다듬은 뒤 변경사항을 저장해주세요.</p></div><div id="message" class="message hidden" style="margin:0 0 20px"></div>
+<form id="editForm" class="form-stack"><label>제목<input id="title" maxlength="200" required></label><label>내용<textarea id="content" rows="15" required></textarea></label><div class="form-footer"><span class="form-tip">변경된 내용만 안전하게 저장됩니다.</span><div class="button-row"><a id="cancelLink" class="button" href="#">취소</a><button class="button primary large" type="submit">수정 저장</button></div></div></form></section></main>
+<footer class="site-footer">Develop Board · Keep your knowledge polished</footer><script src="/js/common.js"></script><script src="/js/edit.js"></script></body></html>

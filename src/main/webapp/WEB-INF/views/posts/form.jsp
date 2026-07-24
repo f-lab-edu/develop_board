@@ -1,0 +1,7 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>게시글 작성 · Develop Board</title><link rel="stylesheet" href="/css/board.css"></head>
+<body>
+<header class="site-header"><div class="container header-inner"><a class="brand" href="/posts"><span class="brand-mark">D</span><span class="brand-text">Develop Board</span></a><label class="writer-label">작성자 ID <input id="writerId" type="number" min="1" value="1"></label></div></header>
+<main class="container page-space"><section class="panel narrow"><div class="form-head"><span class="eyebrow" style="color:#5b5cf0">New Post</span><h1>새로운 글 작성</h1><p class="muted">오늘 배운 내용이나 함께 이야기하고 싶은 주제를 남겨보세요.</p></div><div id="message" class="message hidden" style="margin:0 0 20px"></div>
+<form id="boardForm" class="form-stack"><label>제목<input id="title" maxlength="200" placeholder="제목을 입력해주세요" required></label><label>내용<textarea id="content" rows="15" placeholder="내용을 자유롭게 작성해주세요" required></textarea></label><div class="form-footer"><span class="form-tip">작성자 ID는 상단에서 변경할 수 있어요.</span><div class="button-row"><a class="button" href="/posts">취소</a><button class="button primary large" type="submit">게시글 등록</button></div></div></form></section></main>
+<footer class="site-footer">Develop Board · Share what you learned today</footer><script src="/js/common.js"></script><script src="/js/form.js"></script></body></html>

@@ -1,0 +1,8 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>게시글 상세 · Develop Board</title><link rel="stylesheet" href="/css/board.css"></head>
+<body data-board-uuid="${boardUuid}">
+<header class="site-header"><div class="container header-inner"><a class="brand" href="/posts"><span class="brand-mark">D</span><span class="brand-text">Develop Board</span></a><label class="writer-label">작성자 ID <input id="writerId" type="number" min="1" value="1"></label></div></header>
+<main class="container page-space"><div id="message" class="message hidden" style="margin:0 0 18px"></div>
+<section class="panel detail-card"><div class="detail-heading"><div><span id="tag" class="tag">POST</span><h1 id="title">게시글을 불러오는 중...</h1><p id="meta" class="muted"></p></div><div class="button-row"><a class="button" href="/posts">목록</a><a id="editLink" class="button" href="#">수정</a><button id="deleteButton" class="button danger" type="button">삭제</button></div></div><article id="content" class="post-content"></article></section>
+<section class="panel comment-panel"><div><h2>댓글</h2><p class="muted small">생각을 나누고 더 깊은 이야기를 이어가 보세요.</p></div><form id="commentForm" class="comment-form"><textarea id="commentContent" rows="4" placeholder="댓글을 입력하세요" required></textarea><button class="button primary" type="submit">댓글 등록</button></form><div id="comments" class="comments"><p class="empty">댓글을 불러오는 중입니다.</p></div></section></main>
+<footer class="site-footer">Develop Board · Better together</footer><script src="/js/common.js"></script><script src="/js/detail.js"></script></body></html>
