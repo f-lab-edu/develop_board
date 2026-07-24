@@ -29,6 +29,10 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	implementation("org.redisson:redisson-spring-boot-starter:3.35.0")
+	implementation("org.apache.tomcat.embed:tomcat-embed-jasper")
+	implementation("jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api")
+	runtimeOnly("org.glassfish.web:jakarta.servlet.jsp.jstl")
 }
 
 kotlin {

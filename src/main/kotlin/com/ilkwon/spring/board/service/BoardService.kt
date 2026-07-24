@@ -5,38 +5,67 @@ import com.ilkwon.spring.board.dto.BoardDetailResponse
 import com.ilkwon.spring.board.dto.BoardListResponse
 import com.ilkwon.spring.board.dto.BoardUpdateRequest
 import com.ilkwon.spring.board.dto.exception.BoardNotFoundException
+import com.ilkwon.spring.board.dto.exception.IncreaseViewException
 import com.ilkwon.spring.board.dto.exception.NotUpdateException
 import com.ilkwon.spring.board.dto.exception.UserDeniedException
 import com.ilkwon.spring.board.entity.Board
 import com.ilkwon.spring.board.repository.BoardRepository
+import org.redisson.api.RedissonClient
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.concurrent.TimeUnit
 
 
 @Service
 @Transactional
-class BoardService(private val boardRepository: BoardRepository) {
-
-    //title, content, writer, create_at, updated_at, UUID
+class BoardService(
+        private val boardRepository: BoardRepository,
+        private val redissonClient: RedissonClient
+) {
     fun createBoard(
         request: BoardCreateRequest,
-        writerId: Long
+        writerId: Long,
+        idempotencyKey: String
     ): Board {
+        val existingBoard =
+            boardRepository.findByIdempotencyKey(idempotencyKey)
+
+        if (existingBoard != null) {
+            return existingBoard
+        }
+
         val board = Board.create(
             title = request.title,
             content = request.content,
-            writerId = writerId
+            writerId = writerId,
+            idempotencyKey = idempotencyKey
         )
+
         return boardRepository.save(board)
     }
 
     fun getBoardDetail(
         uuid: String
     ): BoardDetailResponse {
+        val lock = redissonClient.getLock("board:view:$uuid")
 
-        boardRepository.increaseViews(uuid)
+
+        try {
+            val available = lock.tryLock(5, 3, TimeUnit.SECONDS)
+
+            if (!available) {
+                throw IncreaseViewException()
+            }
+
+            boardRepository.increaseViews(uuid)
+
+        } finally {
+            if (lock.isHeldByCurrentThread) {
+                lock.unlock()
+            }
+        }
 
         val board = boardRepository.findByUuid(uuid)
             ?: throw BoardNotFoundException(uuid)
@@ -44,20 +73,23 @@ class BoardService(private val boardRepository: BoardRepository) {
         return BoardDetailResponse.detail(board)
     }
 
+    @Transactional(readOnly = true)
     fun getBoardList(
         page: Int,
         size: Int,
         sort: String
-    ): List<BoardListResponse>{
+    ): List<BoardListResponse> {
+
         val page = if (page < 1) 1 else page
+
         //controler 에서 받아온 sort에 따라 (유저가 입력했다 가정) 조회소순, 오래된순, 최신순 선택
         val sort = when (sort){
-            "views"  -> Sort.by(Sort.Direction.DESC, "views")
-            "oldest" -> Sort.by(Sort.Direction.DESC, "oldest")
-            else     -> Sort.by(Sort.Direction.DESC, "createdAt") //최신순 -> 기본값
+            "views" -> Sort.by(Sort.Direction.DESC, "views")
+            "oldest" -> Sort.by(Sort.Direction.ASC, "createdAt")
+            else -> Sort.by(Sort.Direction.DESC, "createdAt")
         }
-        val pageable = PageRequest.of(page-1, size, sort)
 
+        val pageable = PageRequest.of(page-1, size, sort)
         return boardRepository.findAll(pageable).content.map(BoardListResponse::boardList)
     }
 
@@ -65,7 +97,7 @@ class BoardService(private val boardRepository: BoardRepository) {
         uuid: String,
         request: BoardUpdateRequest,
         writerId: Long
-    ){
+    ) {
         val board = boardRepository.findByUuid(uuid)
             ?: throw BoardNotFoundException(uuid)
 
@@ -79,13 +111,15 @@ class BoardService(private val boardRepository: BoardRepository) {
         ) {
             throw NotUpdateException()
         }
+
         val updatedBoard = board.update(request)
         boardRepository.save(updatedBoard)
     }
 
     fun deleteBoard(
         uuid: String,
-        writerId: Long) {
+        writerId: Long
+    ) {
         val board = boardRepository.findByUuid(uuid)
             ?: throw BoardNotFoundException(uuid)
 
@@ -95,4 +129,5 @@ class BoardService(private val boardRepository: BoardRepository) {
 
         boardRepository.delete(board)
     }
+
 }
