@@ -1,11 +1,11 @@
-package com._ilkwon.spring.board.controller
+package com.ilkwon.spring.board.controller
 
-import com._ilkwon.spring.board.dto.BoardCreateRequest
-import com._ilkwon.spring.board.dto.BoardDetailResponse
-import com._ilkwon.spring.board.dto.BoardListResponse
-import com._ilkwon.spring.board.dto.BoardUpdateRequest
-import com._ilkwon.spring.board.dto.common.CommonResponse
-import com._ilkwon.spring.board.service.BoardService
+import com.ilkwon.spring.board.dto.BoardCreateRequest
+import com.ilkwon.spring.board.dto.BoardDetailResponse
+import com.ilkwon.spring.board.dto.BoardListResponse
+import com.ilkwon.spring.board.dto.BoardUpdateRequest
+import com.ilkwon.spring.board.dto.common.CommonResponse
+import com.ilkwon.spring.board.service.BoardService
 import org.springframework.web.bind.annotation.*
 
 

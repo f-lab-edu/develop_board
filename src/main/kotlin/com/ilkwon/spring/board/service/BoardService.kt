@@ -1,14 +1,14 @@
-package com._ilkwon.spring.board.service
+package com.ilkwon.spring.board.service
 
-import com._ilkwon.spring.board.dto.BoardCreateRequest
-import com._ilkwon.spring.board.dto.BoardDetailResponse
-import com._ilkwon.spring.board.dto.BoardListResponse
-import com._ilkwon.spring.board.dto.BoardUpdateRequest
-import com._ilkwon.spring.board.dto.exception.BoardNotFoundException
-import com._ilkwon.spring.board.dto.exception.NotUpdateException
-import com._ilkwon.spring.board.dto.exception.UserDeniedException
-import com._ilkwon.spring.board.entity.Board
-import com._ilkwon.spring.board.repository.BoardRepository
+import com.ilkwon.spring.board.dto.BoardCreateRequest
+import com.ilkwon.spring.board.dto.BoardDetailResponse
+import com.ilkwon.spring.board.dto.BoardListResponse
+import com.ilkwon.spring.board.dto.BoardUpdateRequest
+import com.ilkwon.spring.board.dto.exception.BoardNotFoundException
+import com.ilkwon.spring.board.dto.exception.NotUpdateException
+import com.ilkwon.spring.board.dto.exception.UserDeniedException
+import com.ilkwon.spring.board.entity.Board
+import com.ilkwon.spring.board.repository.BoardRepository
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service

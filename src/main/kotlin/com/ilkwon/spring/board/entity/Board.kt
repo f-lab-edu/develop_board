@@ -1,6 +1,6 @@
-package com._ilkwon.spring.board.entity
+package com.ilkwon.spring.board.entity
 
-import com._ilkwon.spring.board.dto.BoardUpdateRequest
+import com.ilkwon.spring.board.dto.BoardUpdateRequest
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType

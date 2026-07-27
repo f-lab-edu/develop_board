@@ -1,4 +1,4 @@
-package com._ilkwon.spring.board.dto.common
+package com.ilkwon.spring.board.dto.common
 
 data class CommonResponse(
     val state: Boolean,

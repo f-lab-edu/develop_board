@@ -1,4 +1,4 @@
-package com._ilkwon.spring.board.dto.exception
+package com.ilkwon.spring.board.dto.exception
 
 class BoardNotFoundException(
     uuid: String

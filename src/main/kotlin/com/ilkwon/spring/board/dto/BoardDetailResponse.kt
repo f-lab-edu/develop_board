@@ -1,7 +1,7 @@
-package com._ilkwon.spring.board.dto
+package com.ilkwon.spring.board.dto
 
-import com._ilkwon.spring.board.entity.Board
-import com._ilkwon.spring.board.entity.ViewTag
+import com.ilkwon.spring.board.entity.Board
+import com.ilkwon.spring.board.entity.ViewTag
 import java.time.LocalDateTime
 
 data class BoardDetailResponse(

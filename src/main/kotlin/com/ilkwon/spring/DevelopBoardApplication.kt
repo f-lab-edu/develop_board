@@ -1,4 +1,4 @@
-package com._ilkwon.spring
+package com.ilkwon.spring
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
