@@ -112,7 +112,8 @@ class BoardService(
             throw NotUpdateException()
         }
 
-        board.update(request)
+        val updatedBoard = board.update(request)
+        boardRepository.save(updatedBoard)
     }
 
     fun deleteBoard(
