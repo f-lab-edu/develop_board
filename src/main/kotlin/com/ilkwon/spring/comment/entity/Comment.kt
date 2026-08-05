@@ -37,7 +37,7 @@ class Comment(
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
-    var createdAt: LocalDateTime? = null
+    val createdAt: LocalDateTime? = null
 ) {
     companion object {
         fun create(

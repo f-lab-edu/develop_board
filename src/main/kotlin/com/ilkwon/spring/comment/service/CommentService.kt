@@ -51,7 +51,7 @@ class CommentService(
             id = savedComment.id,
             content = savedComment.content,
             writerId = savedComment.writerId,
-            createdAt = requireNotNull(comment.createdAt),
+            createdAt = requireNotNull(savedComment.createdAt),
             children = emptyList()
         )
     }
