@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: develop_board
+
+  datasource:
+    url: jdbc:mysql://localhost:3307/board?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: ${MYSQL_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp

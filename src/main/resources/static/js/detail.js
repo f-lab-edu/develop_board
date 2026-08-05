@@ -62,7 +62,12 @@ document.getElementById('comments').addEventListener('click', function (event) {
 
 document.getElementById('deleteButton').addEventListener('click', async function () {
     if (!confirm('게시글을 삭제할까요?')) return;
-    try { await api(`/api/posts/${encodeURIComponent(uuid)}`, {method: 'DELETE'}); location.href = '/posts'; } catch (error) { showMessage(error.message, true); }
+    try { await api(`/api/posts/${encodeURIComponent(uuid)}`, {
+        method: 'DELETE',
+        headers: {
+            'x-note-account': writerId()
+        }
+    }); location.href = '/posts'; } catch (error) { showMessage(error.message, true); }
 });
 
 loadBoard();

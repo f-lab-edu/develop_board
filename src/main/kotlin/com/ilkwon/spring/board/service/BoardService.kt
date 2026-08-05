@@ -24,17 +24,25 @@ class BoardService(
         private val boardRepository: BoardRepository,
         private val redissonClient: RedissonClient
 ) {
-    //title, content, writerId, create_at, updated_at, UUID
     fun createBoard(
         request: BoardCreateRequest,
         writerId: Long,
-        idempotencyKey : String
+        idempotencyKey: String
     ): Board {
-        val existingBoard = boardRepository.findByIdempotencyKey(idempotencyKey)
+        val existingBoard =
+            boardRepository.findByIdempotencyKey(idempotencyKey)
+
         if (existingBoard != null) {
             return existingBoard
         }
-        val board = Board.create(request, writerId, idempotencyKey)
+
+        val board = Board.create(
+            title = request.title,
+            content = request.content,
+            writerId = writerId,
+            idempotencyKey = idempotencyKey
+        )
+
         return boardRepository.save(board)
     }
 
@@ -82,7 +90,7 @@ class BoardService(
         }
 
         val pageable = PageRequest.of(page-1, size, sort)
-        return boardRepository.findAll(pageable).content.map(BoardListResponse::BoardList)
+        return boardRepository.findAll(pageable).content.map(BoardListResponse::boardList)
     }
 
     fun updateBoard(
@@ -108,10 +116,16 @@ class BoardService(
     }
 
     fun deleteBoard(
-        uuid: String
+        uuid: String,
+        writerId: Long
     ) {
         val board = boardRepository.findByUuid(uuid)
             ?: throw BoardNotFoundException(uuid)
+
+        if (board.writerId != writerId) {
+            throw UserDeniedException()
+        }
+
         boardRepository.delete(board)
     }
 

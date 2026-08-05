@@ -17,7 +17,7 @@ import org.springframework.data.annotation.LastModifiedDate
 
 @Entity
 @Table(name = "board")
-data class Board(
+data class Board private constructor(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,20 +58,19 @@ data class Board(
         fun create(
             title: String,
             content: String,
-            request: BoardCreateRequest,
             writerId: Long,
-            idempotencyKey : String
+            idempotencyKey: String
         ): Board {
             require(title.isNotBlank()) {
                 "제목을 입력해 주세요."
             }
             require(content.isNotBlank()) {
-                "내용은 입력해 주세요."
+                "내용을 입력해 주세요."
             }
 
             return Board(
-                title = request.title,
-                content = request.content,
+                title = title,
+                content = content,
                 writerId = writerId,
                 idempotencyKey = idempotencyKey
             )
@@ -82,11 +81,12 @@ data class Board(
         require(
             request.title != null || request.content != null
         ) {
-            "수정하는 내용이 없습니다"
+            "수정하는 내용이 없습니다."
         }
+
         return copy(
             title = request.title ?: title,
-            content = request.content ?: content,
+            content = request.content ?: content
         )
     }
 }

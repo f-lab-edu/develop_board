@@ -15,11 +15,16 @@ class BoardController (private val boardService: BoardService) {
 
     @PostMapping
     fun createBoard(
-        @RequestHeader("x-note-account") writerId : Long,
-        @RequestBody request: BoardCreateRequest,
-        @RequestHeader("Idempotency-Key") idempotencyKey: String
+        @RequestHeader("x-note-account") writerId: Long,
+        @RequestHeader("Idempotency-Key") idempotencyKey: String,
+        @RequestBody request: BoardCreateRequest
     ): CommonResponse {
-        boardService.createBoard(request, writerId, idempotencyKey)
+        boardService.createBoard(
+            request = request,
+            writerId = writerId,
+            idempotencyKey = idempotencyKey
+        )
+
         return CommonResponse.success(
             code = 200,
             message = "게시글이 생성되었습니다"
@@ -58,9 +63,14 @@ class BoardController (private val boardService: BoardService) {
 
     @DeleteMapping("/{uuid}")
     fun deleteBoard(
+        @RequestHeader("x-note-account") writerId: Long,
         @PathVariable uuid: String
     ): CommonResponse {
-        boardService.deleteBoard(uuid)
+        boardService.deleteBoard(
+            uuid = uuid,
+            writerId = writerId
+        )
+
         return CommonResponse.success(
             code = 200,
             message = "게시글이 삭제되었습니다"

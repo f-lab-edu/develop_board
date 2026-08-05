@@ -13,7 +13,7 @@ data class BoardListResponse(
     val tag: ViewTag
 ) {
     companion object {
-        fun BoardList(board: Board): BoardListResponse {
+        fun boardList(board: Board): BoardListResponse {
             return BoardListResponse(
                 uuid = board.uuid,
                 title = board.title,
