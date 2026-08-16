@@ -4,6 +4,7 @@ import com.ilkwon.spring.board.entity.Board
 import com.ilkwon.spring.board.entity.ViewTag
 import java.time.LocalDateTime
 
+
 data class BoardDetailResponse(
     val title: String,
     val content: String,

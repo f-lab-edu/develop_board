@@ -7,10 +7,12 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 
 @Repository
-public interface BoardRepository : JpaRepository<Board, Long> {
+interface BoardRepository : JpaRepository<Board, Long> {
     fun findByUuid(uuid: String): Board?
+    fun findByIdempotencyKey(idempotencyKey: String): Board?
 
     @Modifying
-    @Query("UPDATE Board SET views = views + 1 WHERE uuid = :uuid")
+    @Query("UPDATE Board SET views = views + 1, tag = CASE WHEN views + 1 >= 1000 THEN 'POPULAR' ELSE tag END WHERE uuid = :uuid")
     fun increaseViews(uuid: String)
+
 }
