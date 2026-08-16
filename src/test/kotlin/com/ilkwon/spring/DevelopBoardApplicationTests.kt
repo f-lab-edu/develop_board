@@ -1,4 +1,4 @@
-package com._ilkwon.develop_board
+package com.ilkwon.spring
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
